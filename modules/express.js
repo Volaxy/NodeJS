@@ -4,6 +4,9 @@ const UserModel = require("../src/models/user.model");
 const app = express();
 app.use(express.json());
 
+app.set("view engine", "ejs");
+app.set("views", "src/views");
+
 // Middleware allows a function to be executed before requests are made
 app.use((req, res, next) => {
     console.log(`Request Type: ${req.method}`);
@@ -17,6 +20,11 @@ app.use((req, res, next) => {
 app.get("/home", (req, res) => {
     res.contentType("application/html");
     res.status(200).send("<h1>Hello world!</h1>");
+});
+
+// View Response
+app.get("/views/users", async (req, res) => {
+    res.render("index");
 });
 
 // GET
