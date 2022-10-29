@@ -4,6 +4,15 @@ const UserModel = require("../src/models/user.model");
 const app = express();
 app.use(express.json());
 
+// Middleware allows a function to be executed before requests are made
+app.use((req, res, next) => {
+    console.log(`Request Type: ${req.method}`);
+    console.log(`Content Type: ${req.headers["content-type"]}`);
+    console.log(`Date: ${new Date}`);
+
+    next();
+});
+
 // Simple Response
 app.get("/home", (req, res) => {
     res.contentType("application/html");
