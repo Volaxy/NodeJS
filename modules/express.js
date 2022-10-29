@@ -4,26 +4,26 @@ const UserModel = require("../src/models/user.model");
 const app = express();
 app.use(express.json());
 
+// Simple Response
 app.get("/home", (req, res) => {
     res.contentType("application/html");
     res.status(200).send("<h1>Hello world!</h1>");
 });
 
-app.get("/users", (req, res) => {
-    const users = [
-        {
-            name: "John Doe",
-            email: "john@doe.com",
-        },
-        {
-            name: "Jone Doe",
-            email: "jone@doe.com",
-        }
-    ];
+// GET
+// ALL Users
+app.get("/users", async (req, res) => {
+    try {
+        const users = await UserModel.find({});
 
-    res.status(200).json(users);
+        res.status(200).json(users);
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
 });
 
+// POST
+// NEW User
 app.post("/users", async (req, res) => {
     try {
         const user = await UserModel.create(req.body);
