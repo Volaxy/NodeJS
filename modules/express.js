@@ -22,11 +22,15 @@ app.get("/home", (req, res) => {
     res.status(200).send("<h1>Hello world!</h1>");
 });
 
+// VIEWS --------------------------------------------------
 // View Response
 app.get("/views/users", async (req, res) => {
-    res.render("index");
+    const users = await UserModel.find({});
+
+    res.render("index", { users });
 });
 
+// REST API --------------------------------------------------
 // GET
 // ALL Users
 app.get("/users", async (req, res) => {
