@@ -14,7 +14,11 @@ router.get("/pokemons/:id", async (req, res) => {
 });
 
 router.post("/pokemons", async (req, res) => {
-    
+    const pokemon = req.body;
+
+    const newPokemon = pokemonsService.insertPokemon(pokemon);
+
+    res.json(newPokemon);
 });
 
 router.put("/pokemons/:id", async (req, res) => {
