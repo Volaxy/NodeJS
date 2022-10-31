@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const pokemonsService = require("../services/pokemonsService");
+const Pokemon = require("../models/pokemon.model");
 
 router.get("/pokemons", async (req, res) => {
     const pokemons = await pokemonsService.getPokemons();
@@ -11,6 +12,14 @@ router.get("/pokemons", async (req, res) => {
 
 router.get("/pokemons/:id", async (req, res) => {
     const pokemon = await pokemonsService.getPokemon(req.params.id);
+
+    if(!pokemon) {
+        let newPokemon = new Pokemon();
+
+        newPokemon = pokemonsService.insertPokemon(JSON.parse(newPokemon));
+
+        res.json(newPokemon);
+    }
 
     res.json(pokemon);
 });
