@@ -43,12 +43,22 @@ Em seguida, no terminal da pasta do projeto, digite:
 
 Em seguida basta fazer as requisições através das seguintes URL's:
 
+Para as requisições que precisarem de um body:
+
+```json
+{
+	"name": "NOME",
+	"atk": INT,
+	"def": INT
+}
+```
+
 * GET - Todos os pokemons: http://localhost:8080/pokemons.
 
 * GET - Pega um pokemon informando um id específico: http://localhost:8080/pokemons/{id}.
 
-* POST - Inclui um pokemon: http://localhost:8080/pokemons.
+* POST - Inclui um pokemon: http://localhost:8080/pokemons - Necessário informar um body.
 
-* PUT - Edita um pokemon informando um id: http://localhost:8080/pokemons.
+* PUT - Edita um pokemon informando um id: http://localhost:8080/pokemons/{id} - Necessário informar um body.
 
 * DELETE - Deleta um pokemon informando um id: http://localhost:8080/pokemons/{id}.v
