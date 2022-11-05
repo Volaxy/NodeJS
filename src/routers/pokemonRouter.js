@@ -4,44 +4,73 @@ const router = express.Router();
 const pokemonsService = require("../services/pokemonsService");
 const Pokemon = require("../models/pokemon.model");
 
+// GET
+// ALL Pokemons
 router.get("/pokemons", async (req, res) => {
-    const pokemons = await pokemonsService.getPokemons();
-
-    res.json(pokemons);
+    try {
+        const pokemons = await pokemonsService.getPokemons();
+    
+        res.json(pokemons);
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
 });
 
+// Pokemon by Id
 router.get("/pokemons/:id", async (req, res) => {
-    const pokemon = await pokemonsService.getPokemon(req.params.id);
+    try {
+        const pokemon = await pokemonsService.getPokemon(req.params.id);
 
-    if(!pokemon) {
-        let newPokemon = new Pokemon();
+        if(!pokemon) {
+            let newPokemon = new Pokemon();
+            
+            newPokemon = await pokemonsService.insertPokemon(newPokemon);
+            
+            res.json(newPokemon);
+        }
 
-        newPokemon = pokemonsService.insertPokemon(JSON.parse(newPokemon));
+        res.json(pokemon);
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+});
+
+// POST
+// INSERT Pokemon
+router.post("/pokemons", async (req, res) => {
+    try {
+        const pokemon = req.body;
+        const newPokemon = pokemonsService.insertPokemon(pokemon);
 
         res.json(newPokemon);
+    } catch (error) {
+        return res.status(500).send(error.message);
     }
-
-    res.json(pokemon);
 });
 
-router.post("/pokemons", async (req, res) => {
-    const pokemon = req.body;
-    const newPokemon = pokemonsService.insertPokemon(pokemon);
-
-    res.json(newPokemon);
-});
-
+// PUT
+// ALTER Pokemon by Id
 router.put("/pokemons/:id", async (req, res) => {
-    const pokemon = req.body;
-    await pokemonsService.updatePokemon(req.params.id, pokemon);
+    try {
+        const pokemon = req.body;
+        await pokemonsService.updatePokemon(req.params.id, pokemon);
 
-    res.end();
+        res.end();
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
 });
 
+// DELETE
+// DELETE Pokemon by Id
 router.delete("/pokemons/:id", async (req, res) => {
-    await pokemonsService.deletePokemon(req.params.id);
+    try {
+        await pokemonsService.deletePokemon(req.params.id);
 
-    res.end();
+        res.end();
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
 });
 
 // Exporta o roteamento
