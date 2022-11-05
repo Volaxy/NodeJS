@@ -23,14 +23,14 @@ Para inicializar o container Docker com o postgres. Em seguida, acesse o db no D
 E execute esse SQL:
 
 ```sql
-create table pokemon (
+create table pokemons (
 	id serial primary key,
 	name varchar(30) not null,
 	atk int not null,
 	def int not null
 );
 
-insert into pokemon (name, atk, def) values
+insert into pokemons (name, atk, def) values
 	('Bulbasaur', 14, 10),
 	('Venusaur', 17, 15);
 ```
