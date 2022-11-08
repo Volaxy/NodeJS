@@ -20,7 +20,7 @@ Para inicializar o container Docker com o postgres. Em seguida, acesse o db no D
 * username: postgres
 * password: postgres
 
-E execute esse SQL:
+E execute o [SQL para executar a estrutura base do banco](./scripts/Create%20Table.sql):
 
 ```sql
 create table pokemons (
@@ -42,6 +42,8 @@ Em seguida, no terminal da pasta do projeto, digite:
 ## URL's da API
 
 Em seguida basta fazer as requisições através das seguintes URL's:
+
+Caso você tenha o [Postman](https://www.postman.com/), baixe o [arquivo para as requisições](scripts/Pokemons%20NodeJS.postman_collection.json);
 
 Para as requisições que precisarem de um body:
 
