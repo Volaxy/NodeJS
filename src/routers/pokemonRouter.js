@@ -1,8 +1,15 @@
-const { express } = require("../app");
+const { app, express } = require("../app");
 const router = express.Router();
 
 const pokemonsService = require("../services/pokemonsService");
 const Pokemon = require("../models/pokemon.model");
+
+app.set("view engine", "ejs");
+app.set("views", "src/views");
+
+app.get("/views/pokemons", async (req, res) => {
+    res.render("index");
+});
 
 // GET
 // ALL Pokemons
