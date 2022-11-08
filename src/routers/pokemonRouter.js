@@ -1,4 +1,4 @@
-const express = require("express");
+const { express } = require("../app");
 const router = express.Router();
 
 const pokemonsService = require("../services/pokemonsService");
@@ -10,7 +10,7 @@ router.get("/pokemons", async (req, res) => {
     try {
         const pokemons = await pokemonsService.getPokemons();
     
-        res.json(pokemons);
+        res.status(200).json(pokemons);
     } catch (error) {
         return res.status(500).send(error.message);
     }
@@ -26,10 +26,10 @@ router.get("/pokemons/:id", async (req, res) => {
             
             newPokemon = await pokemonsService.insertPokemon(newPokemon);
             
-            res.json(newPokemon);
+            return res.status(201).json(newPokemon);
         }
 
-        res.json(pokemon);
+        return res.status(200).json(pokemon);
     } catch (error) {
         return res.status(500).send(error.message);
     }
@@ -40,9 +40,9 @@ router.get("/pokemons/:id", async (req, res) => {
 router.post("/pokemons", async (req, res) => {
     try {
         const pokemon = req.body;
-        const newPokemon = pokemonsService.insertPokemon(pokemon);
+        const newPokemon = await pokemonsService.insertPokemon(pokemon);
 
-        res.json(newPokemon);
+        res.status(201).json(newPokemon);
     } catch (error) {
         return res.status(500).send(error.message);
     }
@@ -53,9 +53,11 @@ router.post("/pokemons", async (req, res) => {
 router.put("/pokemons/:id", async (req, res) => {
     try {
         const pokemon = req.body;
-        await pokemonsService.updatePokemon(req.params.id, pokemon);
+        pokemonsService.updatePokemon(req.params.id, pokemon);
 
-        res.end();
+        const changedPokemon = await pokemonsService.getPokemon(req.params.id);
+
+        res.status(200).json(changedPokemon);
     } catch (error) {
         return res.status(500).send(error.message);
     }
@@ -67,7 +69,7 @@ router.delete("/pokemons/:id", async (req, res) => {
     try {
         await pokemonsService.deletePokemon(req.params.id);
 
-        res.end();
+        res.status(200).end();
     } catch (error) {
         return res.status(500).send(error.message);
     }

@@ -1,5 +1,4 @@
-const express = require("express");
-const app = express();
+const { app, express } = require("./app");
 
 app.use(express.json());
 
