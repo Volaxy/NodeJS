@@ -1,10 +1,6 @@
 # API REST de Pokemons com NodeJS + Postgres + Docker
 
-> REPOSITÓRIO AINDA EM CONSTRUÇÃO :)
-
 Este projeto foi feito em um servidor NodeJS utilizando API's para acessar um banco de dados postgres através de um container Docker.
-
-> OBS.: O processo de automatização ainda está sendo montado
 
 ## Instalação
 
